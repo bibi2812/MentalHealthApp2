@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'notesPage/viewNotes.dart';
 
 void main(){
   runApp(const MentalHealthApp());
@@ -9,6 +10,9 @@ class MentalHealthApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+        theme: ThemeData(brightness: Brightness.light),
+        home: const viewNotes(),
+    );
   }
 }
