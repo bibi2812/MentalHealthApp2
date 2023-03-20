@@ -1,20 +1,59 @@
 import 'package:flutter/material.dart';
 
-import 'appBar.dart';
+class appBar extends StatelessWidget {
+  const appBar ({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: const[
+        Text('Notes', style: TextStyle(
+          fontSize: 28,
+        ),
+        ),
+        Spacer(),
+        searchIcon(),
+      ],
+    );
+  }
+}
+
+
+class searchIcon extends StatelessWidget {
+  const searchIcon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 45,
+        width: 45,
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(.2), borderRadius: BorderRadius.circular(15),
+        ),
+        child: const Center(
+          child: Icon(Icons.search,
+          ),
+        )
+    );
+  }
+}
 
 class viewNotesBody extends StatelessWidget {
   const viewNotesBody ({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
+    return Padding(
+      padding: const EdgeInsets.symmetric (horizontal: 24),
+      child: Column(
+        children: const [
         SizedBox(
           height: 50,
         ),
         appBar(),
-        itemNotes(),
+        Expanded ( child:notesList()),
       ],
+    ),
     );
   }
 }
@@ -54,6 +93,24 @@ class itemNotes extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class notesList extends StatelessWidget {
+  const notesList ({Key? key}) : super(key:key);
+
+  @override
+  Widget build (BuildContext context){
+    return Padding (
+      padding: EdgeInsets.symmetric(vertical: 15),
+      child: ListView.builder (itemBuilder : (context , index)
+      {
+        return const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          child: itemNotes(),
+        );
+      }),
     );
   }
 }
