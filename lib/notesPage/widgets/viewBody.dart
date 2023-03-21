@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../editNotes.dart';
+
 class appBar extends StatelessWidget {
   const appBar ({super.key});
 
@@ -17,7 +19,6 @@ class appBar extends StatelessWidget {
     );
   }
 }
-
 
 class searchIcon extends StatelessWidget {
   const searchIcon({super.key});
@@ -63,7 +64,13 @@ class itemNotes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context ){
+          return const editNote();
+        }),);
+      },
+      child: Container(
       padding: const EdgeInsets.only(top:20,bottom: 20, left:16),
       decoration: BoxDecoration(
         color: Colors.green,
@@ -93,7 +100,7 @@ class itemNotes extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ),);
   }
 }
 

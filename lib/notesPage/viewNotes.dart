@@ -17,7 +17,7 @@ class viewNotes extends StatelessWidget {
             context: context,
             builder: (context)
         {
-          return Container();
+          return const addNote();
         });
       },
       child: const Icon(Icons.add),
@@ -33,38 +33,89 @@ class addNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: SingleChildScrollView(
       child:Column(
       children: const [
         SizedBox(
           height: 32,
         ),
-        textField(),
+        CustomTextField(
+          hint: "Date",
+        ),
+        SizedBox(
+          height: 16,
+        ),
+        CustomTextField(
+          hint: "Content",
+          maxLines: 10,
+        ),
+        SizedBox(
+          height: 16,
+        ),
+        bottomButton(),
+        SizedBox(
+          height: 16,
+        ),
       ],
     ),
+      ),
     );
   }
 }
 
-class textField extends StatelessWidget {
-  const textField ({Key? key}) : super(key:key);
+// check the below code for CustomTextField (it's correct i think?? doesnt show the text boxes??)
+class CustomTextField extends StatelessWidget {
+  const CustomTextField ({Key? key, required this.hint, this.maxLines = 1}) : super(key: key);
+
+  final String hint;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      maxLines: maxLines,
       decoration: InputDecoration(
+        hintText: (hint),
+        hintStyle: const TextStyle(
+          color: Colors.black,
+        ),
         border: buildBorder(),
-          enabledBorder: buildBorder(),
-          focusedBorder: buildBorder (const Color(0xffa12828))),
-      );
+        enabledBorder: buildBorder(Colors.purple),
+        focusedBorder: buildBorder(Colors.red),
+      ),
+    );
   }
-  OutlineInputBorder buildBorder([color]){
+
+  OutlineInputBorder buildBorder([color]) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(
         8,
       ),
-      borderSide: BorderSide(
-        color: color ?? Colors.blue,
-    ),);
+      borderSide: const BorderSide(
+        color: Colors.blue,
+      ),);
+  }
+}
+
+class bottomButton extends StatelessWidget {
+  const bottomButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build (BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.amber,
+            borderRadius: BorderRadius.circular(8
+      )),
+      child: const Center(
+        child: Text ("Save",
+          style: TextStyle(
+            color: Colors.black
+          ),),
+      ),
+    );
   }
 }
