@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:setap/notesPage/viewNotes.dart';
 import 'package:setap/notesPage/widgets/viewBody.dart';
 
 
@@ -29,7 +30,19 @@ class editNoteBody extends StatelessWidget{
         ),
         appBar(
           title: "Edit note",
-          icon: Icons.check,)],
+          icon: Icons.check,
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        CustomTextField(hint: 'Date'),
+        SizedBox(
+          height: 16,
+        ),
+        CustomTextField (hint: 'Content',
+        maxLines: 10,
+        ),
+      ],
     ),
     );
   }
