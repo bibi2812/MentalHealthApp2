@@ -35,6 +35,7 @@ class addNote extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SingleChildScrollView(
+      child: SingleChildScrollView(
       child:Column(
       children: const [
         SizedBox(
@@ -60,11 +61,11 @@ class addNote extends StatelessWidget {
       ],
     ),
       ),
+      ),
     );
   }
 }
 
-// check the below code for CustomTextField (it's correct i think?? doesnt show the text boxes??)
 class CustomTextField extends StatelessWidget {
   const CustomTextField ({Key? key, required this.hint, this.maxLines = 1}) : super(key: key);
 

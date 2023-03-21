@@ -3,25 +3,33 @@ import 'package:flutter/material.dart';
 import '../editNotes.dart';
 
 class appBar extends StatelessWidget {
-  const appBar ({super.key});
+  const appBar ({super.key, required this.title, required this.icon});
+
+  final String title;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: const[
-        Text('Notes', style: TextStyle(
-          fontSize: 28,
+      children: [
+         Text(title,
+           style: const TextStyle(
+             fontSize: 28,
         ),
         ),
-        Spacer(),
-        searchIcon(),
+        const Spacer(),
+        CustomIcon(
+          icon: icon,
+        ),
       ],
     );
   }
 }
 
-class searchIcon extends StatelessWidget {
-  const searchIcon({super.key});
+class CustomIcon extends StatelessWidget {
+  const CustomIcon({Key? key, required this.icon}) : super(key: key);
+
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +37,17 @@ class searchIcon extends StatelessWidget {
         height: 45,
         width: 45,
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(.2), borderRadius: BorderRadius.circular(15),
+          color: Colors.black.withOpacity(.2),
+          borderRadius: BorderRadius.circular(15),
         ),
-        child: const Center(
-          child: Icon(Icons.search,
+        child: IconButton(
+          onPressed: (){},
+          icon: Icon(
+            icon,
+              size: 28,
           ),
-        )
-    );
+        ),
+          );
   }
 }
 
@@ -51,7 +63,10 @@ class viewNotesBody extends StatelessWidget {
         SizedBox(
           height: 50,
         ),
-        appBar(),
+        appBar(
+          title: "Notes",
+          icon: Icons.search,
+        ),
         Expanded ( child:notesList()),
       ],
     ),
@@ -110,7 +125,7 @@ class notesList extends StatelessWidget {
   @override
   Widget build (BuildContext context){
     return Padding (
-      padding: EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       child: ListView.builder (itemBuilder : (context , index)
       {
         return const Padding(

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:setap/notesPage/widgets/viewBody.dart';
+
 
 
 class editNote extends StatelessWidget{
@@ -18,7 +20,17 @@ class editNoteBody extends StatelessWidget{
 
   @override
   Widget build (BuildContext context) {
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.symmetric (horizontal: 24),
+    child: Column(
+      children: const [
+        SizedBox(
+          height: 50,
+        ),
+        appBar(
+          title: "Edit note",
+          icon: Icons.check,)],
+    ),
     );
   }
 }
