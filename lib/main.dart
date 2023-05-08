@@ -16,51 +16,13 @@ void main() async{
 class MentalHealthApp extends StatelessWidget {
   const MentalHealthApp ({Key? key}) : super(key: key);
 
-  final List<Widget> _pages = [
-    calendar(),
-    notes(),
-    Settings(),
-  ];
-
-  void pagechange(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
         theme: ThemeData(brightness: Brightness.light),
         // home: const viewNotes(),
-<<<<<<< HEAD
         home: const Calendar(),
-=======
-        home: const viewNotes()
-
-         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: pagechange(index),
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Calendar',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Notes',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
-        ),
->>>>>>> 7d76bd0db8341f9e2c2705288a8f020cf0fd4553
     );
-
-
   }
 }

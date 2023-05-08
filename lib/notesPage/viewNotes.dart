@@ -59,7 +59,6 @@ class viewNotes extends State<Notes> {
 
   _onItemTapped(int index) {
     if (index == 0) {
-      print("HAHAHAHAHAHAH");
       Navigator.push(
           this.context,
           MaterialPageRoute(builder: (context) => const Calendar())
