@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import "package:hive_flutter/hive_flutter.dart";
 import 'models/notes_model.dart';
 import 'notesPage/viewNotes.dart';
+import 'calendar/calendar.dart';
 
 void main() async{
   await Hive.initFlutter();
@@ -20,7 +21,8 @@ class MentalHealthApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
         theme: ThemeData(brightness: Brightness.light),
-        home: const viewNotes(),
+        // home: const viewNotes(),
+        home: const HomeScreen()
     );
   }
 }
