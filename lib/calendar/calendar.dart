@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:setap/notesPage/viewNotes.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({Key? key}) : super(key: key);
@@ -68,8 +69,12 @@ class HomeScreenState extends State<Calendar> {
   // _onItemTapped checks when the bottom navigation bar was clicked
   void _onItemTapped(int index) {
     setState(() {
-      print('Tapped $index');
+      if (index == 1) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Notes())
+        );
+      }
     });
-
   }
 }

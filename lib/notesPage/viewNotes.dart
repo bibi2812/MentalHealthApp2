@@ -1,11 +1,21 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:setap/notesPage/widgets/viewBody.dart';
+import 'package:setap/calendar/calendar.dart';
 
-class viewNotes extends StatelessWidget {
-  const viewNotes ({Key? key}) : super(key: key);
+class Notes extends StatefulWidget {
+  // const Notes({Key? key}) : super(key: key);
 
+  Notes({super.key});
+
+  @override
+  viewNotes createState() => viewNotes();
+}
+
+class viewNotes extends State<Notes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +30,41 @@ class viewNotes extends StatelessWidget {
           return const addNote();
         });
       },
-      child: const Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       body: const viewNotesBody(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home...",
+            backgroundColor: Colors.greenAccent
+          ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.book),
+          label: "Notes...",
+        backgroundColor: Colors.amber
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: "Settings",
+          backgroundColor: Colors.blueGrey
+        )
+        ],
+        onTap: _onItemTapped,
+      ),
     );
+  }
+
+  _onItemTapped(int index) {
+    if (index == 0) {
+      print("HAHAHAHAHAHAH");
+      Navigator.push(
+          this.context,
+          MaterialPageRoute(builder: (context) => const Calendar())
+      );
+    }
   }
 }
 

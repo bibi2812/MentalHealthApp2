@@ -22,7 +22,7 @@ class MentalHealthApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
         theme: ThemeData(brightness: Brightness.light),
         // home: const viewNotes(),
-        home: const viewNotes()
+        home: const Calendar(),
     );
   }
 }
