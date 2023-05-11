@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:hive/hive.dart';
 import 'package:setap/notesPage/widgets/viewBody.dart';
 import 'package:setap/calendar/calendar.dart';
 
-// global variables for extracting saved values
-// used by viewNotes class for getBox()
-String? __globDate = "";
-String? __globMood = "";
-
 class Notes extends StatefulWidget {
+  // const Notes({Key? key}) : super(key: key);
+
   Notes({super.key});
 
   @override
@@ -19,15 +15,20 @@ class Notes extends StatefulWidget {
 
 class viewNotes extends State<Notes> {
 
-  //read data
+//read data
 void readData() {
   List<String> notes = _myBox.get();
-  /* for (String note in notes) {
+  if (notes == null){
+    String message = 'There is nothing to read';
+    return message;
+  }
+  for (String note in notes) {
     List<String> data = note.split('\n');
     print('Date = ${data[0]}');
     print('Mood-Score = ${data[1]}');
-  } */
+  }
 }
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,21 +101,13 @@ class addNoteForm extends StatefulWidget {
   @override
   State<addNoteForm> createState() => _addNoteFormState();
 }
-
 class _addNoteFormState extends State<addNoteForm>{
-  final _box = Hive.box('notes_box');
 
   final GlobalKey<FormState> formKey = GlobalKey();
 
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   String ? date, moodScore;
-
-  // write data
-  void _writeData(String date, mood) {
-    var newNote = [date, mood];
-    _box.add(newNote);
-  }
 
     @override
     Widget build(BuildContext context) {
@@ -129,13 +122,6 @@ class _addNoteFormState extends State<addNoteForm>{
            CustomTextField(
             onSaved: (value) {
               date = value;
-              // provides the user with a shortcut if they leave the date field empty
-              if (date != null) {
-                __globDate = value;
-              } else {
-                __globDate = DateTime.now().toString();
-              }
-
             },
             hint: "Date",
           ),
@@ -145,13 +131,6 @@ class _addNoteFormState extends State<addNoteForm>{
           CustomTextField(
             onSaved: (value) {
               moodScore = value;
-              if (value != null) {
-                __globMood = value;
-              } else {
-                __globMood = """No mood recorded- please remember to update your
-                notes or delete this card.""";
-              }
-
             },
             hint: "Content",
             maxLines: 10,
@@ -164,8 +143,7 @@ class _addNoteFormState extends State<addNoteForm>{
               if(formKey.currentState!.validate())
                 {
                   formKey.currentState!.save();
-                  _writeData(__globDate!, __globMood);
-                } else {
+                } else{
                 autovalidateMode = AutovalidateMode.always;
                 setState((){
               });
