@@ -16,8 +16,8 @@ class Notes extends StatefulWidget {
 class viewNotes extends State<Notes> {
 
 //read data
-void readData() {
-  List<String> notes = _myBox.get();
+void readData(key) {
+  List<String> notes = _myBox.get(key);
   if (notes == null){
     String message = 'There is nothing to read';
     return message;
