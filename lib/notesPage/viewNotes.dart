@@ -18,6 +18,17 @@ class Notes extends StatefulWidget {
 }
 
 class viewNotes extends State<Notes> {
+
+  //read data
+void readData() {
+  List<String> notes = _myBox.get();
+  /* for (String note in notes) {
+    List<String> data = note.split('\n');
+    print('Date = ${data[0]}');
+    print('Mood-Score = ${data[1]}');
+  } */
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
