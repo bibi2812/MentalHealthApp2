@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:setap/notesPage/viewNotes.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'quotes.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({Key? key}) : super(key: key);
@@ -11,11 +13,36 @@ class Calendar extends StatefulWidget {
 }
 
 class HomeScreenState extends State<Calendar> {
+  late Box<NotesModel> quotesBox; // Declare quotesBox variable
+  late String randQuote; // Declare randQuote variable
+
+  @override
+  void initState() {
+    super.initState();
+    _getRandomQuote(); // Call method to get a random quote
+  }
+
+  Future<void> _getRandomQuote() async {
+    await Hive.initFlutter();
+    await Hive.openBox<NotesModel>('quotes_box');
+
+    // Retrieve the quotes from the Hive box
+    quotesBox = Hive.box<NotesModel>('quotes_box');
+    List<NotesModel> quotes = quotesBox.values.toList();
+
+    // Select a random quote
+    final Random random = Random();
+    final int randIndex = random.nextInt(quotes.length);
+    randQuote = quotes[randIndex].quote;
+
+    setState(() {}); // Update the state to reflect the random quote
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Welcome. Namaste..."),
+        title: Text(randQuote), // Display the random quote in the app bar
         centerTitle: true,
       ),
       body: Center(
@@ -23,17 +50,16 @@ class HomeScreenState extends State<Calendar> {
           alignment: Alignment.center,
           children: [
             Center(
-                child: Card(
-                  child: CalendarDatePicker(
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime.now(),
-                      onDateChanged: (DateTime value) {}
-                  ),
-                )
+              child: Card(
+                child: CalendarDatePicker(
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime.now(),
+                  onDateChanged: (DateTime value) {},
+                ),
+              ),
             ),
             Positioned(
-              // places the FilledButton 10 pixels from the bottom
               bottom: 10,
               child: FilledButton(
                 child: const Text("Does nothing yet!"),
@@ -46,33 +72,32 @@ class HomeScreenState extends State<Calendar> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "Home...",
-              backgroundColor: Colors.greenAccent
+            icon: Icon(Icons.home),
+            label: "Home...",
+            backgroundColor: Colors.greenAccent,
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.book),
-              label: "Notes...",
-              backgroundColor: Colors.amber
+            icon: Icon(Icons.book),
+            label: "Notes...",
+            backgroundColor: Colors.amber,
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: "Settings",
-              backgroundColor: Colors.blueGrey
-          )
+            icon: Icon(Icons.settings),
+            label: "Settings",
+            backgroundColor: Colors.blueGrey,
+          ),
         ],
         onTap: _onItemTapped,
       ),
     );
   }
 
-  // _onItemTapped checks when the bottom navigation bar was clicked
   void _onItemTapped(int index) {
     setState(() {
       if (index == 1) {
         Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Notes())
+          context,
+          MaterialPageRoute(builder: (context) => Notes()),
         );
       }
     });
