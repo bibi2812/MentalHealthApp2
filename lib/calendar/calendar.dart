@@ -27,11 +27,10 @@ class HomeScreenState extends State<Calendar> {
     await Hive.initFlutter();
     await Hive.openBox<NotesModel>('quotes_box');
 
-    // Retrieve the quotes from the Hive box
+    // get random quote
     quotesBox = Hive.box<NotesModel>('quotes_box');
     List<NotesModel> quotes = quotesBox.values.toList();
 
-    // Select a random quote
     final Random random = Random();
     final int randIndex = random.nextInt(quotes.length);
     randQuote = quotes[randIndex].quote;
