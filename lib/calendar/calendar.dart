@@ -13,16 +13,17 @@ class Calendar extends StatefulWidget {
 }
 
 class HomeScreenState extends State<Calendar> {
-  late Box<NotesModel> quotesBox; // Declare quotesBox variable
-  late String randQuote; // Declare randQuote variable
+  //declare variables
+  late Box<NotesModel> quotesBox; 
+  late String randQuote;
 
   @override
   void initState() {
     super.initState();
-    _getRandomQuote(); // Call method to get a random quote
+    getRandomQuote(); //call to method
   }
 
-  Future<void> _getRandomQuote() async {
+  Future<void> getRandomQuote() async {
     await Hive.initFlutter();
     await Hive.openBox<NotesModel>('quotes_box');
 
@@ -35,14 +36,14 @@ class HomeScreenState extends State<Calendar> {
     final int randIndex = random.nextInt(quotes.length);
     randQuote = quotes[randIndex].quote;
 
-    setState(() {}); // Update the state to reflect the random quote
+    setState(() {}); // update state
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(randQuote), // Display the random quote in the app bar
+        title: Text(randQuote), // Display quote
         centerTitle: true,
       ),
       body: Center(
