@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:hive/hive.dart';
 import 'package:setap/notesPage/widgets/viewBody.dart';
 import 'package:setap/calendar/calendar.dart';
 
@@ -14,10 +15,11 @@ class Notes extends StatefulWidget {
 }
 
 class viewNotes extends State<Notes> {
+  final _myBox = Hive.box('notes_box');
 
 //read data
-void readData(key) {
-  List<String> notes = _myBox.get(key);
+String? readData(key) {
+  List<dynamic>? notes = _myBox.get(key);
   if (notes == null){
     String message = 'There is nothing to read';
     return message;
@@ -102,12 +104,17 @@ class addNoteForm extends StatefulWidget {
   State<addNoteForm> createState() => _addNoteFormState();
 }
 class _addNoteFormState extends State<addNoteForm>{
+  final _myBox = Hive.box('notes_box');
 
   final GlobalKey<FormState> formKey = GlobalKey();
 
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   String ? date, moodScore;
+
+  void _writeData(String date, mood) {
+    _myBox.add([date, mood]);
+  }
 
     @override
     Widget build(BuildContext context) {
@@ -143,7 +150,7 @@ class _addNoteFormState extends State<addNoteForm>{
               if(formKey.currentState!.validate())
                 {
                   formKey.currentState!.save();
-                } else{
+                } else {
                 autovalidateMode = AutovalidateMode.always;
                 setState((){
               });
