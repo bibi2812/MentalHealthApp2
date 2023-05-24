@@ -1,6 +1,9 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import '../notesPage/viewNotes.dart';
 import 'quotes.dart';
 
 class Calendar extends StatefulWidget {
@@ -13,29 +16,32 @@ class Calendar extends StatefulWidget {
 }
 
 class HomeScreenState extends State<Calendar> {
-  //declare variables
-  late Box<NotesModel> quotesBox; 
-  late String randQuote;
+  String randQuote = "loading...";
 
   @override
   void initState() {
     super.initState();
-    getRandomQuote(); //call to method
+    loadQuote();
   }
 
-  Future<void> getRandomQuote() async {
-    await Hive.initFlutter();
-    await Hive.openBox<NotesModel>('quotes_box');
+  void loadQuote() async {
+    print("Reading quotes db...");
+    var quotesFile = await Hive.openBox('quotes_box');
 
-    // get random quote
-    quotesBox = Hive.box<NotesModel>('quotes_box');
-    List<NotesModel> quotes = quotesBox.values.toList();
-
-    final Random random = Random();
-    final int randIndex = random.nextInt(quotes.length);
-    randQuote = quotes[randIndex].quote;
-
+    String contents = await getRandomQuote(); //call to method
+    randQuote = contents;
     setState(() {}); // update state
+  }
+
+  Future<String> getRandomQuote() async {
+    print("Opened file.\nReading contents...");
+    // String contents = await quotesFile.readAsString(); // Unsupported operation: _Namespace ????
+    // print(contents);
+    // var randoQuotes = quotes;
+    // var rng = Random();
+
+    // randQuote = randoQuotes[rng.nextInt(8)];
+    return "Under Maintenance";
   }
 
   @override

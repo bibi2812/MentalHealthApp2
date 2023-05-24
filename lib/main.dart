@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import "package:hive_flutter/hive_flutter.dart";
+import 'package:setap/models/quotes_model.dart';
 import 'models/notes_model.dart';
 import 'notesPage/viewNotes.dart';
 import 'calendar/calendar.dart';
@@ -10,6 +11,8 @@ void main() async{
 
   await Hive.openBox('notes_box');
   Hive.registerAdapter(notesModelAdapter());
+  await Hive.openBox('quotes_box');
+  Hive.registerAdapter(quotesModelAdapter());
   runApp(const MentalHealthApp());
 }
 
