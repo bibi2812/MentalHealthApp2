@@ -8,28 +8,35 @@ import 'package:setap/calendar/calendar.dart';
 class Notes extends StatefulWidget {
   // const Notes({Key? key}) : super(key: key);
 
-  Notes({super.key});
+  const Notes({super.key});
 
   @override
   viewNotes createState() => viewNotes();
 }
 
+// viewNotes allows the client to view all the saved notes so far
+// viewNotes returns a Scaffold containing:
+// - A button in the lower-right corner, to add a new note
+// - A bottom navigation bar with three buttons, to switch between pages
+// - The main body in the center of the page (Scaffold). The main body consists
+// of green bars that show us the date and the mood score that was recorded on
+// that date.
 class viewNotes extends State<Notes> {
   final _myBox = Hive.box('notes_box');
 
-//read data
-String? readData(key) {
-  List<dynamic>? notes = _myBox.get(key);
-  if (notes == null){
-    String message = 'There is nothing to read';
-    return message;
+  //read data
+  String? readData(key) {
+    List<dynamic>? notes = _myBox.get(key);
+    if (notes == null){
+      String message = 'There is nothing to read';
+      return message;
+    }
+    for (String note in notes) {
+      List<String> data = note.split('\n');
+      print('Date = ${data[0]}');
+      print('Mood-Score = ${data[1]}');
+    }
   }
-  for (String note in notes) {
-    List<String> data = note.split('\n');
-    print('Date = ${data[0]}');
-    print('Mood-Score = ${data[1]}');
-  }
-}
 
 
   @override
@@ -83,6 +90,9 @@ String? readData(key) {
   }
 }
 
+// addNote produces the text area where the client can input the correct data.
+// The text area acts like an input form. This is constructed every time the
+// button is pressed in the viewNotes page.
 class addNote extends StatelessWidget {
   const addNote({Key? key}) : super(key: key);
 
@@ -128,7 +138,7 @@ class _addNoteFormState extends State<addNoteForm>{
           ),
            CustomTextField(
             onSaved: (value) {
-              date = value;
+              date = DateTime.now().toString();
             },
             hint: "Date",
           ),
@@ -150,6 +160,7 @@ class _addNoteFormState extends State<addNoteForm>{
               if(formKey.currentState!.validate())
                 {
                   formKey.currentState!.save();
+                  _writeData(date!, moodScore);
                 } else {
                 autovalidateMode = AutovalidateMode.always;
                 setState((){

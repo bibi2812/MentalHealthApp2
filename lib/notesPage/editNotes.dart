@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:setap/notesPage/viewNotes.dart';
 import 'package:setap/notesPage/widgets/viewBody.dart';
-
 
 
 class editNote extends StatelessWidget{

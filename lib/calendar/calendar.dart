@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import '../notesPage/viewNotes.dart';
@@ -103,7 +100,7 @@ class HomeScreenState extends State<Calendar> {
       if (index == 1) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Notes()),
+          MaterialPageRoute(builder: (context) => const Notes()),
         );
       }
     });

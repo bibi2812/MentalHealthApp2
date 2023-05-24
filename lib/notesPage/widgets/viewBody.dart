@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import '../editNotes.dart';
 
+// appBar is the bar positioned at the top of the screen. It is called by
+// viewNotesBody class (vNtsBdy calls the appBar and the list of green bars).
+// appBar holds a heading and a search icon which the client will be able to use
+// in order to find previously saved notes more quickly.
 class appBar extends StatelessWidget {
   const appBar ({super.key, required this.title, required this.icon});
 
@@ -47,10 +52,12 @@ class CustomIcon extends StatelessWidget {
               size: 28,
           ),
         ),
-          );
+    );
   }
 }
 
+// viewNotesBody returns a bar at the top of the screen with a scrollable list
+// of mood ratings.
 class viewNotesBody extends StatelessWidget {
   const viewNotesBody ({super.key});
 
@@ -74,14 +81,38 @@ class viewNotesBody extends StatelessWidget {
   }
 }
 
+// itemNotes are the green bars that contain each of the mood scores as well as
+// the dates they were written on.
 class itemNotes extends StatelessWidget {
-  const itemNotes ({super.key});
+  final _noteBox = Hive.box('notes_box');
+  final int index;
+
+  itemNotes (this.index, {super.key});
+
+  // _getNote returns either the recorded date or mood based on a given index
+  // dateOrMood must either be "date" or "mood"; anything else returns an error
+  // string (which will be written into the item Boxes!).
+  String _getNote(int index, String dateOrMood) {
+    var note = _noteBox.get(index);
+
+    if (note != null) {
+      if (dateOrMood == "date") {
+        return note[0];
+      } else if (dateOrMood == "mood") {
+        return note[1];
+      } else {
+        return "err- invalid second parameter passed for date or mood.";
+      }
+    } else {
+      return dateOrMood;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context ){
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
           return const editNote();
         }),);
       },
@@ -95,14 +126,14 @@ class itemNotes extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           ListTile(
-            title: const Text("Date",
-            style: TextStyle(
+            title: Text(_getNote(index, "date"),
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 26,
             ),
             ),
-            subtitle: const Text("Mood Score",
-            style: TextStyle(
+            subtitle: Text(_getNote(index, "mood"),
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 15,
             ),
@@ -128,9 +159,9 @@ class notesList extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 15),
       child: ListView.builder (itemBuilder : (context , index)
       {
-        return const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
-          child: itemNotes(),
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: itemNotes(index),
         );
       }),
     );
