@@ -1,16 +1,6 @@
-# setap
+# SETaP Project
+## Mental Health App
 
-A new Flutter project.
+A dart project designed help the user talk about their mental health
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+UP881046, UP2010095, UP2088921, UP2058454, UP943223, UP2089381
