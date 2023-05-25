@@ -57,22 +57,23 @@ class viewNotes extends State<Notes> {
       ),
       body: const viewNotesBody(),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xfff3ce91),
         currentIndex: 1,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: "Home...",
-            backgroundColor: Colors.greenAccent
+            backgroundColor: Color(0xff5d4e40)
           ),
         BottomNavigationBarItem(
           icon: Icon(Icons.book),
           label: "Notes...",
-        backgroundColor: Colors.amber
+        backgroundColor: Color(0xff5d4e40)
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
           label: "Settings",
-          backgroundColor: Colors.blueGrey
+          backgroundColor: Color(0xff5d4e40)
         )
         ],
         onTap: _onItemTapped,
@@ -207,7 +208,7 @@ class CustomTextField extends StatelessWidget {
         8,
       ),
       borderSide: const BorderSide(
-        color: Colors.blue,
+        color: Color(0xff4e9286),
       ),);
   }
 }
@@ -225,7 +226,7 @@ class bottomButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: 50,
       decoration: BoxDecoration(
-        color: Colors.amber,
+        color: Color(0xfff3cb91),
             borderRadius: BorderRadius.circular(8
       )),
       child: const Center(

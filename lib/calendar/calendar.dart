@@ -60,6 +60,7 @@ class HomeScreenState extends State<Calendar> {
       appBar: AppBar(
         title: Text(randQuote), // Display quote
         centerTitle: true,
+        backgroundColor: const Color(0xff4e9286),
       ),
       body: Center(
         child: Stack(
@@ -75,35 +76,37 @@ class HomeScreenState extends State<Calendar> {
                 ),
               ),
             ),
-            Positioned(
-              bottom: 10,
-              child: FilledButton(
-                child: const Text("Does nothing yet!"),
-                onPressed: () {},
-              ),
-            )
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(
+              Icons.home,
+              color: Color(0xff5d4e40),
+            ),
             label: "Home...",
-            backgroundColor: Colors.greenAccent,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book),
+            icon: Icon(
+                Icons.book,
+                color: Color(0xff5d4e40),
+            ),
             label: "Notes...",
-            backgroundColor: Colors.amber,
+            backgroundColor: Color(0xff5d4e40),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(
+                Icons.settings,
+              color: Color(0xff5d4e40),
+            ),
             label: "Settings",
-            backgroundColor: Colors.blueGrey,
+            backgroundColor: Color(0xff5d4e40),
           ),
         ],
         onTap: _onItemTapped,
+        backgroundColor: const Color(0xfff3ce91),
       ),
     );
   }

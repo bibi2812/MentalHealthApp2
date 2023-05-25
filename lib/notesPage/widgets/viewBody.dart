@@ -119,7 +119,7 @@ class itemNotes extends StatelessWidget {
       child: Container(
       padding: const EdgeInsets.only(top:20,bottom: 20, left:16),
       decoration: BoxDecoration(
-        color: Colors.green,
+        color: const Color (0xffb2d582),
         borderRadius: BorderRadius.circular(16),
     ),
       child: Column(
@@ -128,18 +128,18 @@ class itemNotes extends StatelessWidget {
           ListTile(
             title: Text(_getNote(index, "date"),
             style: const TextStyle(
-              color: Colors.black,
+              color: Color(0xff5d4e40),
               fontSize: 26,
             ),
             ),
             subtitle: Text(_getNote(index, "mood"),
             style: const TextStyle(
-              color: Colors.black,
+              color: Color(0xff5d4e40),
               fontSize: 15,
             ),
             ),
             trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.delete,
-            color: Colors.black,
+            color: Color(0xff5d4e40),
               size: 25,
             ),
             ),

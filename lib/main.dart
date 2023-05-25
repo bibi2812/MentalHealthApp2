@@ -23,7 +23,10 @@ class MentalHealthApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        theme: ThemeData(brightness: Brightness.light),
+        theme: ThemeData(
+            brightness: Brightness.light,
+          primaryColor: const Color(0xff4e9286)
+        ),
         // home: const viewNotes(),
         home: const Calendar(),
     );
