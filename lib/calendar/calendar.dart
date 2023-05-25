@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+import 'package:setap/models/quotes_model.dart';
 import '../notesPage/viewNotes.dart';
 import 'quotes.dart';
 
@@ -15,7 +17,7 @@ class Calendar extends StatefulWidget {
 }
 
 class HomeScreenState extends State<Calendar> {
-  String randQuote = "loading";
+  String randQuote = "loading...";
 
   @override
   void initState() {
@@ -24,10 +26,22 @@ class HomeScreenState extends State<Calendar> {
   }
 
   void loadQuote() async {
-    print("Reading quotes db...");
+    print("Loading csv...");
+    String fileData = await rootBundle.loadString("../../MentalHealthAppQuotes.txt");
+    print(fileData);
+
+    List<String> rows = fileData.split("\n");
+
+    print("Opening quotes box...");
     var quotesFile = await Hive.openBox('quotes_box');
 
-    String contents = await getRandomQuote(quotesFile); // call to method
+    for (int i = 0; i < rows.length; i++) {
+      String row = rows[i];
+      quotesFile.put(i, row);
+      print("Current note added to db: " + quotesFile.get(i));
+    }
+
+    var contents = await getRandomQuote(quotesFile); // call to method
     print(contents);
     randQuote = contents;
     setState(() {}); // update state
@@ -35,8 +49,9 @@ class HomeScreenState extends State<Calendar> {
 
   Future<String> getRandomQuote(Box quoteBox) async {
     print("Opened file.\nReading contents...");
-    var rng = Random(140);
-    return quoteBox.get(rng);
+    var rng = Random();
+    var key = rng.nextInt(140);
+    return quoteBox.get(key);
   }
 
   @override
