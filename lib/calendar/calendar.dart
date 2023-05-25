@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import '../notesPage/viewNotes.dart';
@@ -13,7 +15,7 @@ class Calendar extends StatefulWidget {
 }
 
 class HomeScreenState extends State<Calendar> {
-  String randQuote = "loading...";
+  String randQuote = "loading";
 
   @override
   void initState() {
@@ -25,20 +27,16 @@ class HomeScreenState extends State<Calendar> {
     print("Reading quotes db...");
     var quotesFile = await Hive.openBox('quotes_box');
 
-    String contents = await getRandomQuote(); //call to method
+    String contents = await getRandomQuote(quotesFile); // call to method
+    print(contents);
     randQuote = contents;
     setState(() {}); // update state
   }
 
-  Future<String> getRandomQuote() async {
+  Future<String> getRandomQuote(Box quoteBox) async {
     print("Opened file.\nReading contents...");
-    // String contents = await quotesFile.readAsString(); // Unsupported operation: _Namespace ????
-    // print(contents);
-    // var randoQuotes = quotes;
-    // var rng = Random();
-
-    // randQuote = randoQuotes[rng.nextInt(8)];
-    return "Under Maintenance";
+    var rng = Random(140);
+    return quoteBox.get(rng);
   }
 
   @override

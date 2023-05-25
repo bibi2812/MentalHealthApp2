@@ -136,12 +136,6 @@ class _addNoteFormState extends State<addNoteForm>{
           const SizedBox(
             height: 32,
           ),
-           CustomTextField(
-            onSaved: (value) {
-              date = DateTime.now().toString();
-            },
-            hint: "Date",
-          ),
           const SizedBox(
             height: 16,
           ),
@@ -160,7 +154,7 @@ class _addNoteFormState extends State<addNoteForm>{
               if(formKey.currentState!.validate())
                 {
                   formKey.currentState!.save();
-                  _writeData(date!, moodScore);
+                  _writeData(DateTime.now().toString(), moodScore);
                 } else {
                 autovalidateMode = AutovalidateMode.always;
                 setState((){
